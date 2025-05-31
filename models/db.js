@@ -11,10 +11,6 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD || '', // Use empty string if DB_PASSWORD is not set
   database: process.env.DB_NAME, 
   // waitForConnections: true, // Enable connection pooling
-  // ssl: {
-  //   rejectUnauthorized: true, // Disable SSL certificate validation
-  // },
- 
 });
 
 db.connect((err) => {
