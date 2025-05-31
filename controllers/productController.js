@@ -1,7 +1,7 @@
 const productModel = require("../models/productModel");
 const roomModel = require("../models/roomModel");
 const moment = require("moment");
-const isUserInRoom = require('../utils/isUserInRoom');
+const isUserInRoom = require('../utils/roomUtils');
 
 exports.addProduct = (req, res) => {
   const { userId, teamId, ProductName, ExpiredDate, ProductCategory } =
