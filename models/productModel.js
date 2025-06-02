@@ -110,10 +110,13 @@ const productModel = {
     return new Promise((resolve, reject) => {
       const sql = `
           SELECT mp.ProductID, mp.ProductName, mp.ExpiredDate, mp.UserUserID, mu.fcmToken, mt.TeamName
-          FROM msproduct mp JOIN msteam mt ON mp.TeamTeamID = mt.TeamID
-          JOIN  msuser mu ON mp.UserUserID = mu.UserID
+          FROM msproduct mp 
+          JOIN msteam mt ON mp.TeamTeamID = mt.TeamID
+          JOIN msuser mu ON mp.UserUserID = mu.UserID
           JOIN mscollaboration mc ON mp.TeamTeamID = mc.TeamTeamID  
-          WHERE mc.UserUserID = ? AND DATE(mp.ExpiredDate) = ? AND mp.ProductStatus = 1
+          WHERE (mc.UserUserID = ?) 
+          AND DATE(mp.ExpiredDate) = ?
+          AND mp.ProductStatus = 1;
             `;
       db.query(sql, [userId, expireDate], (err, results) => {
         if (err) reject(err);

@@ -10,7 +10,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 // ...existing code...
 
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('0 17 * * *', async () => {
     const today = moment().tz('Asia/Jakarta').format('YYYY-MM-DD');
     console.log(`[CRON] Running status update at ${today}`);
 
@@ -35,9 +35,9 @@ cron.schedule('* * * * *', async () => {
   console.log("Jakarta time:", moment().tz('Asia/Jakarta').format());
 
   const upcomingDates = [
-    moment().add(7, 'days').format('YYYY-MM-DD'),
-    moment().add(3, 'days').format('YYYY-MM-DD'),
-    moment().add(1, 'days').format('YYYY-MM-DD'),
+    moment().tz('Asia/Jakarta').add(7, 'days').format('YYYY-MM-DD'),
+    moment().tz('Asia/Jakarta').add(3, 'days').format('YYYY-MM-DD'),
+    moment().tz('Asia/Jakarta').add(1, 'days').format('YYYY-MM-DD'),
     today
   ];
 
@@ -50,7 +50,7 @@ cron.schedule('* * * * *', async () => {
     }
     for (const user of users) {
       const userId = user.UserID;
-      console.log('UserID: ${userId}')
+      console.log(`UserID: ${userId}`);
 
       for (const date of upcomingDates) {
         try {
@@ -62,7 +62,10 @@ cron.schedule('* * * * *', async () => {
           }
           
           for (const p of products) {
-            const daysLeft = moment(p.ExpiredDate).diff(moment().startOf('day'), 'days');
+            const nowJakarta = moment().tz('Asia/Jakarta').startOf('day');
+            const expiredJakarta = moment(p.ExpiredDate).tz('Asia/Jakarta').startOf('day');
+            const daysLeft = expiredJakarta.diff(nowJakarta, 'days');
+            
             const msg = (daysLeft === 0)
               ? `Your ${p.ProductName} has expired! ❌`
               : `Your ${p.ProductName} in ${p.TeamName} room will expire in ${daysLeft} days! ⏳`;
