@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const moment = require("moment");
+const moment = require("moment-timezone");
 const product = require("../models/productModel");
 const pushNotif = require("../jobs/pushNotif");
 const productModel = require("../models/productModel");
@@ -11,8 +11,11 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 // ...existing code...
 
 cron.schedule('0 0 * * *', async () => {
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment().tz('Asia/Jakarta').format('YYYY-MM-DD');
     console.log(`[CRON] Running status update at ${today}`);
+
+    console.log("Server time:", new Date().toString());
+    console.log("Jakarta time:", moment().tz('Asia/Jakarta').format());
 
     product.updateExpiredStatus(today, (err, result) => {
         if (err) {
@@ -25,8 +28,11 @@ cron.schedule('0 0 * * *', async () => {
 
 
 cron.schedule('* * * * *', async () => {
-  const today = moment().format('YYYY-MM-DD');
+  const today = moment().tz('Asia/Jakarta').format('YYYY-MM-DD');
   console.log(`[CRON] Running notification send at ${today}`);
+
+  console.log("Server time:", new Date().toString());
+  console.log("Jakarta time:", moment().tz('Asia/Jakarta').format());
 
   const upcomingDates = [
     moment().add(7, 'days').format('YYYY-MM-DD'),
@@ -44,6 +50,7 @@ cron.schedule('* * * * *', async () => {
     }
     for (const user of users) {
       const userId = user.UserID;
+      console.log('UserID: ${userId}')
 
       for (const date of upcomingDates) {
         try {

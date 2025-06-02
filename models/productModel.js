@@ -113,7 +113,7 @@ const productModel = {
           FROM msproduct mp JOIN msteam mt ON mp.TeamTeamID = mt.TeamID
           JOIN  msuser mu ON mp.UserUserID = mu.UserID
           JOIN mscollaboration mc ON mp.TeamTeamID = mc.TeamTeamID  
-          WHERE mc.UserUserID = ? AND DATE(mp.ExpiredDate) = ?
+          WHERE mc.UserUserID = ? AND DATE(mp.ExpiredDate) = ? AND mp.ProductStatus = 1
             `;
       db.query(sql, [userId, expireDate], (err, results) => {
         if (err) reject(err);
