@@ -52,7 +52,7 @@ const userModel = {
   ) => {
     const sql = `
     UPDATE msuser 
-    SET UserName = ?, UserEmail = ?, UserPhoneNumber = ?, UserImageIndex = ? 
+    SET UserName = ?, UserEmail = ?, UserPhoneNumber = ?, UserProfileIndex = ? 
     WHERE UserID = ?
   `;
     db.query(
