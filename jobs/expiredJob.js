@@ -58,8 +58,8 @@ cron.schedule('* * * * *', async () => {
           const products = await productModel.searchProductByExpiredDate(userId, date);
 
           if(products.length === 0){
-            console.log(`[CRON] No product to notify for ${dates}` );
-            return;
+            console.log(`[CRON] No product to notify for ${date}` );
+            continue;
           }
           
           for (const p of products) {
