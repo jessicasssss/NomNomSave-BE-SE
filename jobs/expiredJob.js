@@ -45,7 +45,7 @@ cron.schedule('* * * * *', async () => {
     if (err) return console.error("[CRON ERROR] Failed to fetch users:", err);
 
     if(users.length === 0){
-        console.log("[CRON] No logged-in users to notify.");
+        console.log(`[CRON] No product to notify for ${dates}`);
         return;
     }
     for (const user of users) {
@@ -58,7 +58,7 @@ cron.schedule('* * * * *', async () => {
           const products = await productModel.searchProductByExpiredDate(userId, date);
 
           if(products.length === 0){
-            console.log("[CRON] No product to notify.");
+            console.log(`[CRON] No product to notify for ${dates}` );
             return;
           }
           
