@@ -54,6 +54,7 @@ cron.schedule('* * * * *', async () => {
 
       for (const date of upcomingDates) {
         try {
+          console.log(`Dates: ${date}`)
           const products = await productModel.searchProductByExpiredDate(userId, date);
 
           if(products.length === 0){
@@ -65,7 +66,7 @@ cron.schedule('* * * * *', async () => {
             const nowJakarta = moment().tz('Asia/Jakarta').startOf('day');
             const expiredJakarta = moment(p.ExpiredDate).tz('Asia/Jakarta').startOf('day');
             const daysLeft = expiredJakarta.diff(nowJakarta, 'days');
-            
+
             const msg = (daysLeft === 0)
               ? `Your ${p.ProductName} has expired! ❌`
               : `Your ${p.ProductName} in ${p.TeamName} room will expire in ${daysLeft} days! ⏳`;
