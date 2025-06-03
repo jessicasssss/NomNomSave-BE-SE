@@ -71,8 +71,8 @@ cron.schedule('* * * * *', async () => {
               ? `Your ${p.ProductName} has expired! ❌`
               : `Your ${p.ProductName} in ${p.TeamName} room will expire in ${daysLeft} days! ⏳`;
 
-            if (p.fcmToken) {
-              await pushNotif.sendToUser(p.fcmToken, msg);
+            if (user.fcmToken) {
+              await pushNotif.sendToUser(user.fcmToken, msg);
               await new Promise(res => setTimeout(res, 300));
             }
           }
