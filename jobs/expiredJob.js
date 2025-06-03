@@ -45,7 +45,7 @@ cron.schedule('* * * * *', async () => {
     if (err) return console.error("[CRON ERROR] Failed to fetch users:", err);
 
     if(users.length === 0){
-        console.log(`[CRON] No product to notify for ${dates}`);
+        console.log(`[CRON] No User to notify`);
         return;
     }
     for (const user of users) {
