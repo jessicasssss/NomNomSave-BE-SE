@@ -27,7 +27,8 @@ const productModel = {
     const sql = `SELECT mp.ProductID, mp.ProductName, mt.TeamName, mu.UserName, mt.TeamID 
     FROM msteam mt JOIN msproduct mp ON mp.TeamTeamID = mt.TeamID 
     JOIN msuser mu ON mu.UserID = mp.UserUserID
-    WHERE mp.UserUserID = ? ORDER BY mp.ProductID DESC LIMIT 3`;
+    JOIN mscollaboration mc ON mp.TeamTeamID = mc.TeamTeamID
+    WHERE mc.UserUserID = ? ORDER BY mp.ProductID DESC LIMIT 3`;
     db.query(sql, [userId], callback);
   },
 
