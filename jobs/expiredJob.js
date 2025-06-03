@@ -27,7 +27,7 @@ cron.schedule('0 17 * * *', async () => {
 });
 
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('*/2 * * * *', async () => {
   const today = moment().tz('Asia/Jakarta').format('YYYY-MM-DD');
   console.log(`[CRON] Running notification send at ${today}`);
 
@@ -68,7 +68,7 @@ cron.schedule('* * * * *', async () => {
             const daysLeft = expiredJakarta.diff(nowJakarta, 'days');
 
             const msg = (daysLeft === 0)
-              ? `Your ${p.ProductName} has expired! ❌`
+              ? `Your ${p.ProductName} will expire today! 😱💔😰`
               : `Your ${p.ProductName} in ${p.TeamName} room will expire in ${daysLeft} days! ⏳`;
 
             if (user.fcmToken) {
