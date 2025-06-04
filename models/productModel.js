@@ -49,7 +49,7 @@ const productModel = {
 
   viewProductCategory: (userId, categoryId, teamId, callback) => {
     const sql = `SELECT mp.ProductID, mp.ProductName, DATE_FORMAT(mp.ExpiredDate, '%d %M %Y') AS FormattedExpiredDate, 
-    (DATEDIFF(mp.ExpiredDate, CURDATE()) - 1) AS daysLeft, mt.TeamName, mp.ProductStatus, mu.UserName
+    DATEDIFF(mp.ExpiredDate, CURDATE()) AS daysLeft, mt.TeamName, mp.ProductStatus, mu.UserName
         FROM msproduct mp JOIN msteam mt ON mp.TeamTeamID = mt.TeamID
         JOIN mscollaboration mc ON mp.TeamTeamID = mc.TeamTeamID
         JOIN msuser mu ON mu.UserID = mc.UserUserID 
