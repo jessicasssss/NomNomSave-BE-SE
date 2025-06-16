@@ -10,7 +10,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 // ...existing code...
 
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('0 17 * * *', async () => {
     const today = moment().tz('Asia/Jakarta').format('YYYY-MM-DD');
     console.log(`[CRON] Running status update at ${today}`);
 
@@ -24,8 +24,6 @@ cron.schedule('0 0 * * *', async () => {
 
         console.log(`[CRON] Updated ${result.affectedRows} product(s) to EXPIRED`);
     });
-}, {
-  timezone: 'Asia/Jakarta'
 });
 
 
@@ -84,6 +82,4 @@ cron.schedule('*/2 * * * *', async () => {
       }
     }
   });
-}, {
-  timezone: 'Asia/Jakarta'
 });
